@@ -1,0 +1,16 @@
+name: KillAllTheMobs
+version: 0.0.1
+author: xxCoderforlife
+prefix: SD
+load: POSTWORLD
+api-version: 1.13
+main: me.Coderforlife.KillMobs.Main
+
+#COMMANDS
+commands:
+ killzombies:
+   permission: zombies.main
+   description: Kill All the Zombies
+ killmobs:
+   permission: KAM.mobs
+   description: dfefau
