@@ -10,6 +10,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 import me.Coderforlife.KillMobs.Main;
+import net.md_5.bungee.api.ChatColor;
 
 public class KillZombies implements CommandExecutor {
 	private Main plugin;
@@ -26,6 +27,8 @@ public class KillZombies implements CommandExecutor {
 		this.plugin = plugin;
 	}
 
+
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (command.getName().equalsIgnoreCase("killzombies")) {
@@ -38,8 +41,7 @@ public class KillZombies implements CommandExecutor {
 							en.remove();
 						}
 					}
-					Bukkit.getServer()
-							.broadcastMessage(Main.prefix + player.getDisplayName() + " removed the all Zombies.");
+					player.sendMessage(Main.prefix + ChatColor.translateAlternateColorCodes('&', "&4Killed all &2Zombies"));
 
 				}
 			} else if (sender instanceof ConsoleCommandSender) {

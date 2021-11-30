@@ -31,7 +31,7 @@ public class PlayerQuit implements Listener {
 
 	@EventHandler
 	public void playerquitevent(PlayerQuitEvent e) {
-		BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+		final BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
 		scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
 			@Override
 			public void run() {

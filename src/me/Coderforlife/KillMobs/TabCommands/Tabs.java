@@ -47,6 +47,9 @@ public class Tabs implements TabCompleter {
 						tab.add(en.getType().toString());
 					}
 				}	
+			}else if(args[0].equalsIgnoreCase("killall")) {
+				tab.add("unsafe");
+				
 			}
 
 		}

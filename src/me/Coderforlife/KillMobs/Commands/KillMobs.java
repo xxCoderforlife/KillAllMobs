@@ -1,5 +1,7 @@
 package me.Coderforlife.KillMobs.Commands;
 
+
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -15,7 +17,8 @@ import me.Coderforlife.KillMobs.Main;
 
 public class KillMobs implements CommandExecutor {
 
-	private String maincmd = "killmobs";
+	private final String maincmd = "killmobs";
+	private final String killall = "killall";
 	private Main plugin;
 
 	public KillMobs(Main plugin) {
@@ -36,10 +39,25 @@ public class KillMobs implements CommandExecutor {
 			if (args.length == 0) {
 				if (command.getName().equalsIgnoreCase(maincmd)) {
 					if (p.hasPermission(Main.perm + "main")) {
-						// TODO Add Help Message
-						p.sendMessage("Hi I'm a debug message");
+						p.sendMessage(Main.header);
+						p.sendMessage(ChatColor.translateAlternateColorCodes('&', 
+								"&c&oUse the following commands:"));
+						p.sendMessage(Main.dash + 
+								ChatColor.translateAlternateColorCodes('&', 
+										"&b&o/killmobs &amobs &4&lMOBNAME"));
+						p.sendMessage(Main.dash + 
+								ChatColor.translateAlternateColorCodes('&', 
+										"&b&o/killmobs &akillall &7&o(&f&lRemoves all unnamed mobs)"));
+						p.sendMessage(Main.dash + 
+								ChatColor.translateAlternateColorCodes('&', 
+										"&b&o/killmobs &akillall unsafe &7&o(&f&lRemoves all Mobs,Drops, and Entites even if named&7&o)"));
 					} else {
-						// TODO Add Perm messages
+						p.sendMessage(Main.prefix + 
+								ChatColor.translateAlternateColorCodes('&', 
+								        "&cYou don't have permission to use that command."));
+						p.sendMessage(Main.prefix + 
+								ChatColor.translateAlternateColorCodes('&', 
+										"&7&oPermission:&b KAM.main"));
 					}
 				}
 
@@ -49,18 +67,24 @@ public class KillMobs implements CommandExecutor {
 					p.sendMessage(Main.prefix + ChatColor.translateAlternateColorCodes('&', 
 							" Use &e&o/killmobs mobs &c&o<MobName>"));
 					
-				}else if(args[0].equalsIgnoreCase("killall")){
+				}else if(args[0].equalsIgnoreCase(killall)){
 					if(p.hasPermission(Main.perm + "killmobs.killall")) {
 						final int dead = p.getWorld().getEntities().size();
 						String deadS = Integer.toString(dead);
+						
 						for(Entity en : p.getWorld().getEntities()) {
-							if(!(en instanceof Player) || !en.getCustomName().isBlank()) {
-								en.remove();
+						    boolean hasCustomName = en.getCustomName() != null;
+							if(!(en instanceof Player)) {
+								if (!hasCustomName) {
+									en.remove();
+								}
 							}
 						}
 						p.sendMessage(Main.prefix + ChatColor.translateAlternateColorCodes('&', 
 								"Wow you are a &4&lMonster&r you just killed &a&l" + deadS + "&r Mobs"));
 						
+					}else {
+						//TODO Add Perm Message
 					}
 				}
 			}
@@ -81,6 +105,26 @@ public class KillMobs implements CommandExecutor {
 						} catch (IllegalArgumentException e) {
 							p.sendMessage(Main.prefix + ChatColor.translateAlternateColorCodes('&',
 									"&c" + args[1] + " is not a vaild Entity"));
+						}
+					}else {
+						//TODO Add Perm
+					}
+				}else if(args[0].equalsIgnoreCase(killall)) {
+					if(args[1].equalsIgnoreCase("unsafe")) {
+						if(p.hasPermission(Main.perm + "killall.unsafe")) {
+							final int dead = p.getWorld().getEntities().size();
+							String deadS = Integer.toString(dead);
+							for(World worlds : Bukkit.getWorlds()) {
+								for(Entity en : worlds.getEntities()) {
+									if(!(en instanceof Player)) {
+										en.remove();
+									}
+								}
+							}
+							p.sendMessage(Main.prefix + ChatColor.translateAlternateColorCodes('&', 
+									"Wow you are a &4&lMonster&r you just killed &a&l" + deadS + "&r Mobs"));
+						}else {
+							//TODO Add Perm Message
 						}
 					}
 				}
