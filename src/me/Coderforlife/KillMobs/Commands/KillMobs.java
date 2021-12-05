@@ -141,8 +141,18 @@ public class KillMobs implements CommandExecutor {
 				}
 			}
 			if(args.length == 1) {
-				
-			}
+				if(args[0].equalsIgnoreCase(killall)){
+					for(World worlds : Bukkit.getWorlds()) {
+						for(Entity en : worlds.getEntities()) {
+							if(!(en instanceof Player)) {
+								en.remove();
+							}
+						}
+					}
+						sender.sendMessage(Main.prefix + ChatColor.translateAlternateColorCodes('&', 
+								"Wow you are a &4&lMonster&r you just killed &a&l"));
+				}
+			} 
 			if(args.length == 2) {
 				
 			}

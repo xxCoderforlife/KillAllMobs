@@ -3,7 +3,6 @@ package me.Coderforlife.KillMobs.Events;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -29,15 +28,14 @@ public class MobSpawn implements Listener{
 	@EventHandler
 	public void onMobSpawn(CreatureSpawnEvent e) {
 		try {
-		List<String> list = plugin.getConfig().getStringList("Mob.DenySpawn");
+		List<String> list = plugin.getConfig().getStringList("Mobs.DenySpawn");
 		for(String string : list) {
-			e.getEntityType();
-			if(EntityType.valueOf(string) != null) {
-				e.setCancelled(true);
-			}
+			Bukkit.getConsoleSender().sendMessage(list.toString());
+			Bukkit.getConsoleSender().sendMessage(string);
 		  }
 		}catch(IllegalArgumentException ex){
 			Bukkit.getConsoleSender().sendMessage("Error with preventing mob spawns.");
+			ex.printStackTrace();
 		}
 	}
 

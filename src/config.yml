@@ -1,0 +1,5 @@
+Mobs:
+  DenySpawn:
+   - CREEPER
+   - WITCH
+   - COW
